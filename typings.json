@@ -1,7 +1,7 @@
 {
   "globalDevDependencies": {
     "bluebird": "registry:dt/bluebird#2.0.0+20160701023356",
-    "bookshelf": "registry:dt/bookshelf#0.8.2+20160514174357",
+    "bookshelf": "file:./bookshelf.d.ts",
     "create-error": "registry:dt/create-error#0.3.1+20160316155526",
     "jasmine": "registry:dt/jasmine#2.2.0+20160621224255",
     "knex": "registry:dt/knex#0.0.0+20160724062536",
