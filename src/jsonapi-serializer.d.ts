@@ -20,6 +20,7 @@ declare module 'jsonapi-serializer' {
     attributes?: string[];
     ref?: string;
     included?: boolean;
+    virtuals?: boolean;
 
     topLevelLinks?: LinkObj;
     dataLinks?: LinkObj;
