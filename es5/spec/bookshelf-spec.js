@@ -1452,6 +1452,19 @@ describe('Serializer options', function () {
         };
         expect(_.matches(expected)(result)).toBe(true);
     });
+    it('should includes meta object option passed to serializer', function () {
+        var meta = { key: 1 };
+        mapper = new Mapper.Bookshelf(domain);
+        var model = bookshelf.Model.forge({ id: '5', attr: 'value' });
+        var result = mapper.map(model, 'model', { meta: meta });
+        var expected = {
+            data: {
+                type: 'models'
+            },
+            meta: meta
+        };
+        expect(_.matches(expected)(result)).toBe(true);
+    });
 });
 describe('Plugins', function () {
     var bookshelf;

@@ -56,7 +56,7 @@ export default class Bookshelf implements Mapper {
         : (attr: string) =>  typeForModel[attr] || plural(attr);  // pluralize when falsy
 
     // Override the template with the provided serializer options
-    assign(template, { typeForAttribute, keyForAttribute: keyForAttr }, this.serialOpts);
+    assign(template, { meta: mapOpts.meta, typeForAttribute, keyForAttribute: keyForAttr }, this.serialOpts);
 
     // Return the data in JSON API format
     const json: any = toJSON(data, bookOpts);

@@ -36,7 +36,7 @@ var Bookshelf = (function () {
             ? typeForModel
             : function (attr) { return typeForModel[attr] || inflection_1.pluralize(attr); }; // pluralize when falsy
         // Override the template with the provided serializer options
-        lodash_1.assign(template, { typeForAttribute: typeForAttribute, keyForAttribute: keyForAttr }, this.serialOpts);
+        lodash_1.assign(template, { meta: mapOpts.meta, typeForAttribute: typeForAttribute, keyForAttribute: keyForAttr }, this.serialOpts);
         // Return the data in JSON API format
         var json = utils_1.toJSON(data, bookOpts);
         return new jsonapi_serializer_1.Serializer(type, template).serialize(json);
