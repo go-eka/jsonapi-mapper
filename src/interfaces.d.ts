@@ -23,4 +23,7 @@ export interface MapOpts {
   enableLinks?: boolean;
   pagination?: PagOpts;
   query?: QueryOpts;
+
+  // Meta
+  meta?: Object
 }
