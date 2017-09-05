@@ -1,4 +1,5 @@
 'use strict';
+Object.defineProperty(exports, "__esModule", { value: true });
 var lodash_1 = require("lodash");
 var inflection_1 = require("inflection");
 var qs_1 = require("qs");
@@ -24,7 +25,7 @@ function topLinks(linkOpts) {
             pag.total = pag.rowCount;
         }
         // Only add pagination links when more than 1 page
-        if (pag.total > 0 && pag.total > pag.limit) {
+        if (pag.total && pag.total > 0 && pag.total > pag.limit) {
             lodash_1.assign(obj, pagLinks(linkOpts));
         }
     }
@@ -64,12 +65,13 @@ function pagLinks(linkOpts) {
             var page = { page: { limit: limit, offset: offset + limit } };
             return baseLink + qs_1.stringify(page, { encode: false });
         };
+        var inmutableTotal_1 = total;
         obj.last = function () {
             // Avoiding overlapping with the penultimate page
-            var lastLimit = (total - (offset % limit)) % limit;
+            var lastLimit = (inmutableTotal_1 - (offset % limit)) % limit;
             // If the limit fits perfectly in the total, reset it to the original
             lastLimit = lastLimit === 0 ? limit : lastLimit;
-            var lastOffset = total - lastLimit;
+            var lastOffset = inmutableTotal_1 - lastLimit;
             var page = { page: { limit: lastLimit, offset: lastOffset } };
             return baseLink + qs_1.stringify(page, { encode: false });
         };

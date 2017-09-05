@@ -26,4 +26,6 @@ export interface MapOpts {
 
   // Meta
   meta?: Object
+
+  extras?: Object
 }

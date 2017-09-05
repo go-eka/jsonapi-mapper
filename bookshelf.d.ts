@@ -291,6 +291,7 @@ declare module 'bookshelf' {
 			shallow? : boolean;
 			omitPivot? : boolean;
       virtuals? : boolean;
+			extras?: Object;
 		}
 
 		interface SetOptions {

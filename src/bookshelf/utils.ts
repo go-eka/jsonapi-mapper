@@ -195,7 +195,11 @@ export function toJSON(data: Data, bookOpts: BookOpts): any {
   let json: any = null;
 
   if (isModel(data)) {
-    json = data.toJSON({shallow: true, virtuals: bookOpts.virtuals}); // serialize without the relations
+    json = data.toJSON({
+      shallow: true,
+      virtuals: bookOpts.virtuals,
+      extras: bookOpts.extras,
+    }); // serialize without the relations
 
     // Assign the id for the model if it's not present already
     if (!has(json, 'id')) { json.id = data.id; }

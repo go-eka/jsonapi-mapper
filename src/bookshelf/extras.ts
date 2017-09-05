@@ -21,6 +21,8 @@ export interface BookOpts extends MapOpts {
 
   // Links-related
   enableLinks: boolean;
+
+  extras?: Object
 }
 
 /**

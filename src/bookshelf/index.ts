@@ -36,13 +36,14 @@ export default class Bookshelf implements Mapper {
       typeForModel = (attr: string) => plural(attr),
       enableLinks = true,
       pagination,
-      query
+      query,
+      extras
     }: MapOpts = mapOpts;
 
     const bookOpts: BookOpts = {
       omitAttrs, keyForAttr, virtuals,
       relations, typeForModel,
-      enableLinks, pagination, query
+      enableLinks, pagination, query, extras
     };
 
     const linkOpts: LinkOpts = { baseUrl: this.baseUrl, type, pag: pagination };

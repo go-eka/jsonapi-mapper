@@ -4,6 +4,7 @@
  * with the goal of simplifying the logic of the main 'map' method.
  */
 'use strict';
+Object.defineProperty(exports, "__esModule", { value: true });
 var lodash_1 = require("lodash");
 var links_1 = require("./links");
 var extras_1 = require("./extras");
@@ -149,7 +150,11 @@ function includeAllowed(bookOpts, relName) {
 function toJSON(data, bookOpts) {
     var json = null;
     if (extras_1.isModel(data)) {
-        json = data.toJSON({ shallow: true, virtuals: bookOpts.virtuals }); // serialize without the relations
+        json = data.toJSON({
+            shallow: true,
+            virtuals: bookOpts.virtuals,
+            extras: bookOpts.extras,
+        }); // serialize without the relations
         // Assign the id for the model if it's not present already
         if (!lodash_1.has(json, 'id')) {
             json.id = data.id;

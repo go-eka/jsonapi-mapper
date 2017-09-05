@@ -3,6 +3,7 @@
  * behaviors and characteristics of the bookshelf API
  */
 'use strict';
+Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * Bookshelf Model Type Guard
  * https://basarat.gitbooks.io/typescript/content/docs/types/typeGuard.html

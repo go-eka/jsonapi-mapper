@@ -1,4 +1,5 @@
 'use strict';
+Object.defineProperty(exports, "__esModule", { value: true });
 var lodash_1 = require("lodash");
 var inflection_1 = require("inflection");
 var jsonapi_serializer_1 = require("jsonapi-serializer");
@@ -23,11 +24,11 @@ var Bookshelf = (function () {
     Bookshelf.prototype.map = function (data, type, mapOpts) {
         if (mapOpts === void 0) { mapOpts = {}; }
         // Set default values for the options
-        var omitAttrs = mapOpts.omitAttrs, _a = mapOpts.keyForAttr, keyForAttr = _a === void 0 ? lodash_1.identity : _a, _b = mapOpts.relations, relations = _b === void 0 ? true : _b, _c = mapOpts.virtuals, virtuals = _c === void 0 ? false : _c, _d = mapOpts.typeForModel, typeForModel = _d === void 0 ? function (attr) { return inflection_1.pluralize(attr); } : _d, _e = mapOpts.enableLinks, enableLinks = _e === void 0 ? true : _e, pagination = mapOpts.pagination, query = mapOpts.query;
+        var omitAttrs = mapOpts.omitAttrs, _a = mapOpts.keyForAttr, keyForAttr = _a === void 0 ? lodash_1.identity : _a, _b = mapOpts.relations, relations = _b === void 0 ? true : _b, _c = mapOpts.virtuals, virtuals = _c === void 0 ? false : _c, _d = mapOpts.typeForModel, typeForModel = _d === void 0 ? function (attr) { return inflection_1.pluralize(attr); } : _d, _e = mapOpts.enableLinks, enableLinks = _e === void 0 ? true : _e, pagination = mapOpts.pagination, query = mapOpts.query, extras = mapOpts.extras;
         var bookOpts = {
             omitAttrs: omitAttrs, keyForAttr: keyForAttr, virtuals: virtuals,
             relations: relations, typeForModel: typeForModel,
-            enableLinks: enableLinks, pagination: pagination, query: query
+            enableLinks: enableLinks, pagination: pagination, query: query, extras: extras
         };
         var linkOpts = { baseUrl: this.baseUrl, type: type, pag: pagination };
         var info = { bookOpts: bookOpts, linkOpts: linkOpts };
@@ -43,6 +44,5 @@ var Bookshelf = (function () {
     };
     return Bookshelf;
 }());
-Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = Bookshelf;
 //# sourceMappingURL=index.js.map
