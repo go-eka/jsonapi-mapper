@@ -70,7 +70,7 @@ function sample(data) {
     else if (extras_1.isCollection(data)) {
         var first = data.head();
         var rest = data.tail();
-        return lodash_1.reduce(rest, mergeSample, sample(first));
+        return lodash_1.reduce(rest, mergeSample, lodash_1.cloneDeep(sample(first)));
     }
     else {
         return {};

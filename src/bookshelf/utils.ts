@@ -103,7 +103,7 @@ function sample(data: Data): Sample {
   } else if (isCollection(data)) {
     const first: Model = data.head();
     const rest: Model[] = data.tail();
-    return reduce(rest, mergeSample, sample(first));
+    return reduce(rest, mergeSample, cloneDeep(sample(first)));
   } else {
     return {} as Sample;
   }
