@@ -62,7 +62,7 @@ function processSample(info, sample) {
 function sample(data) {
     if (extras_1.isModel(data)) {
         // override type because we will ovewrite relations
-        var sampled = lodash_1.omit(lodash_1.clone(data), ['relations', 'attributes']);
+        var sampled = lodash_1.omit(lodash_1.cloneDeep(data), ['relations', 'attributes']);
         sampled.attributes = lodash_1.cloneDeep(data.attributes);
         sampled.relations = lodash_1.mapValues(data.relations, sample);
         return sampled;
