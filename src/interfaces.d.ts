@@ -13,6 +13,7 @@ export interface MapOpts {
   // Attributes-related
   omitAttrs?: (RegExp | string)[] | null;
   keyForAttr?: (attr: string) => string;
+  virtuals?: boolean;
 
   // Relations-related
   relations?: boolean | RelationOpts;
@@ -22,4 +23,9 @@ export interface MapOpts {
   enableLinks?: boolean;
   pagination?: PagOpts;
   query?: QueryOpts;
+
+  // Meta
+  meta?: Object
+
+  extras?: Object
 }

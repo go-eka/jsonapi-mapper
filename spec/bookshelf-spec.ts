@@ -1753,6 +1753,21 @@ describe('Serializer options', () => {
     expect(_.matches(expected)(result)).toBe(true);
   });
 
+  it('should includes meta object option passed to serializer', () => {
+    let meta: Object = {key: 1};
+    mapper = new Mapper.Bookshelf(domain);
+
+    let model: Model = bookshelf.Model.forge<any>({id: '5', attr: 'value'});
+    let result: any = mapper.map(model, 'model', {meta: meta});
+
+    let expected: any = {
+      data: {
+        type: 'models'
+      },
+      meta: meta
+    };
+    expect(_.matches(expected)(result)).toBe(true);
+  });
 });
 
 describe('Plugins', () => {

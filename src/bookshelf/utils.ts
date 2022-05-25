@@ -103,7 +103,7 @@ function sample(data: Data): Sample {
   } else if (isCollection(data)) {
     const first: Model = data.head();
     const rest: Model[] = data.tail();
-    return reduce(rest, mergeSample, sample(first));
+    return reduce(rest, mergeSample, cloneDeep(sample(first)));
   } else {
     return {} as Sample;
   }
@@ -124,7 +124,8 @@ function mergeSample(main: Sample, toMerge: Model): Sample {
  * following filtering rules
  */
 function getAttrsList(data: Model, bookOpts: BookOpts): string[] {
-  let attrs: string[] = keys(data.attributes);
+  let virtualAttrs: string[] = data.virtuals ? keys(data.virtuals) : [];
+  let attrs: string[] = keys(data.attributes).concat(virtualAttrs);
   let { omitAttrs = [data.idAttribute] }: BookOpts = bookOpts;
 
   // Only return attributes that don't match any pattern passed by the user
@@ -189,24 +190,30 @@ function includeAllowed(bookOpts: BookOpts, relName: string): boolean {
  * Convert a bookshelf model or collection to
  * json adding the id attribute if missing
  */
-export function toJSON(data: Data): any {
+export function toJSON(data: Data, bookOpts: BookOpts): any {
 
   let json: any = null;
 
   if (isModel(data)) {
-    json = data.toJSON({shallow: true}); // serialize without the relations
+    json = data.toJSON({
+      shallow: true,
+      virtuals: bookOpts.virtuals,
+      extras: bookOpts.extras,
+    }); // serialize without the relations
 
     // Assign the id for the model if it's not present already
     if (!has(json, 'id')) { json.id = data.id; }
 
     // Loop over model relations to call toJSON recursively on them
     forOwn(data.relations, function (relData: Data, relName: string): void {
-      json[relName] = toJSON(relData);
+      json[relName] = toJSON(relData, bookOpts);
     });
 
   } else if (isCollection(data)) {
     // Run a recursive toJSON on each model of the collection
-    json = data.map(toJSON);
+    json = data.map(function(data: Data) {
+      return toJSON(data, bookOpts)
+    });
   }
 
   return json;

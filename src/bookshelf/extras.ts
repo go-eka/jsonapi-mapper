@@ -16,10 +16,13 @@ export interface BookOpts extends MapOpts {
 
   // Relations-related
   relations: boolean | RelationOpts;
+  virtuals: boolean;
   typeForModel: RelationTypeOpt;
 
   // Links-related
   enableLinks: boolean;
+
+  extras?: Object
 }
 
 /**
@@ -40,6 +43,7 @@ export interface Model extends BModel<any> {
   id: any;
   attributes: Attributes;
   relations: RelationsObject;
+  virtuals: Attributes;
 }
 
 /**

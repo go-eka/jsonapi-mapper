@@ -31,7 +31,7 @@ export function topLinks(linkOpts: LinkOpts): LinkObj {
     }
 
     // Only add pagination links when more than 1 page
-    if (pag.total > 0 && pag.total > pag.limit) {
+    if (pag.total && pag.total > 0 && pag.total > pag.limit) {
       assign(obj, pagLinks(linkOpts));
     }
   }
@@ -80,13 +80,15 @@ function pagLinks(linkOpts: LinkOpts): LinkObj | undefined {
       return baseLink + queryParams(page, {encode: false});
     };
 
+    const inmutableTotal = total;
+
     obj.last = () => {
       // Avoiding overlapping with the penultimate page
-      let lastLimit: number = (total - (offset % limit)) % limit;
+      let lastLimit: number = (inmutableTotal - (offset % limit)) % limit;
       // If the limit fits perfectly in the total, reset it to the original
       lastLimit = lastLimit === 0 ? limit : lastLimit;
 
-      let lastOffset: number = total - lastLimit;
+      let lastOffset: number = inmutableTotal - lastLimit;
       let page: any = {page: {limit: lastLimit, offset: lastOffset }};
       return baseLink + queryParams(page, {encode: false});
     };
