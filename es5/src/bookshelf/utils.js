@@ -59,8 +59,6 @@ function processSample(info, sample) {
  * Convert any data into a model representing
  * a complete sample to be used in the template generation
  */
-
-// sample cache does not store attributes and relations
 const sampleCache = {}; // key: tableName, value: sampled
 function sample(data) {
     if (extras_1.isModel(data)) {
@@ -70,17 +68,17 @@ function sample(data) {
         if (sampleCache[tableName]) {
           sampled = sampleCache[tableName];
         } else {
-          var sampled = lodash_1.omit(lodash_1.clone(data), ['relations', 'attributes']);
+          sampled = lodash_1.omit(lodash_1.clone(data), ['relations', 'attributes']);
           sampleCache[tableName] = sampled;
         }
-        sampled.attributes = lodash_1.clone(data.attributes);
+        sampled.attributes = lodash_1.cloneDeep(data.attributes);
         sampled.relations = lodash_1.mapValues(data.relations, sample);
         return sampled;
     }
     else if (extras_1.isCollection(data)) {
         var first = data.head();
         var rest = data.tail();
-        return lodash_1.reduce(rest, mergeSample, lodash_1.clone(sample(first)));
+        return lodash_1.reduce(rest, mergeSample, lodash_1.cloneDeep(sample(first)));
     }
     else {
         return {};
