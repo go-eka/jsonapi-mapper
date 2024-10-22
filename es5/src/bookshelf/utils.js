@@ -59,12 +59,16 @@ function processSample(info, sample) {
  * Convert any data into a model representing
  * a complete sample to be used in the template generation
  */
+const sampleCache = {}; // key: tableName, value: sampled
 function sample(data) {
     if (extras_1.isModel(data)) {
+        const tableName = data.tableName;
+        if (sampleCache[tableName]) return sampleCache[tableName];
         // override type because we will ovewrite relations
         var sampled = lodash_1.omit(lodash_1.clone(data), ['relations', 'attributes']);
         sampled.attributes = lodash_1.cloneDeep(data.attributes);
         sampled.relations = lodash_1.mapValues(data.relations, sample);
+        sampleCache[tableName] = sampled;
         return sampled;
     }
     else if (extras_1.isCollection(data)) {
